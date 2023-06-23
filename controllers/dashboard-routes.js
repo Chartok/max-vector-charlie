@@ -25,11 +25,11 @@ router.get('/', withAuth, async (req, res) => {
 });
 
 // GET new post
-router.get('/new', withAuth, (req, res) => {
-    res.render('new-post', {
-        layout: 'dashboard',
+router.get('/new', withAuth, async function (req, res) {
+        res.render('new-post', {
+            layout: 'dashboard',
+        });
     });
-});
 
 // GET edit post
 router.get('/edit/:id', withAuth, async (req, res) => {
