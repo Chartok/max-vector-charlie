@@ -2,7 +2,76 @@ const router = require('express').Router();
 const { Post } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// Create user's posts
+// Get all posts for dashboard
+router.get('/', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findAll({
+            where: {
+                user_id: req.session.user_id,
+            },
+        });
+
+        const posts = postData.map((post) => post.get({ plain: true }));
+
+        res.render('all-posts-admin', {
+            layout: 'dashboard',
+            posts,
+        });
+    } catch (err) {
+        console.log('There was an error getting all of the posts', err);
+        res.status(500).json(err);
+    }
+});
+
+// GET a single post
+router.get('/post/:id', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id, {
+            include: [
+                User,
+                {
+                    model: Comment,
+                    include: [User],
+                },
+            ],
+        });
+        if (postData) {
+            const post = postData.get({ plain: true });
+            res.render('single-post', { post });
+        } else {
+            res.status(404).end();
+        }
+    } catch (err) {
+        console.log('There was an error getting the post', err);
+        res.status(500).json(err);
+    }
+});
+
+// GET edit post form
+router.get('/edit/:id', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id, {
+            include: [
+                User,
+                {
+                    model: Comment,
+                    include: [User],
+                },
+            ],
+        });
+        if (postData) {
+            const post = postData.get({ plain: true });
+            res.render('edit-post', { post });
+        } else {
+            res.status(404).end();
+        }
+    } catch (err) {
+        console.log('There was an error getting the post', err);
+        res.status(500).json(err);
+    }
+});
+
+// POST new post
 router.post('/', withAuth, async (req, res) => {
     try {
         const body = req.body;
@@ -14,7 +83,7 @@ router.post('/', withAuth, async (req, res) => {
     }
 });
 
-// Update user's posts
+// PUT update posts
 router.put('/:id', withAuth, async (req, res) => {
     try {
         const body = req.body;
@@ -31,7 +100,7 @@ router.put('/:id', withAuth, async (req, res) => {
     }
 });
 
-// Delete user's posts
+// DELETE posts
 router.delete('/:id', withAuth, async (req, res) => {
     try {
         const postData = await Post.destroy({
