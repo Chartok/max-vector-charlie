@@ -42,12 +42,10 @@ router.post("/signup", async (req, res) => {
             password: req.body.password,
         });
         // Set up sessions with a 'loggedIn' variable set to `true`
-        req.session.save(() => {
-            req.session.user_id = newUser.id;
-            req.session.logged_in = true;
-            req.session.username = newUser.username;
-            res.redirect("/");
-        });
+        const userData = await setSession(req, newUser);
+        res.status(200).json(userData);
+        res.redirect("/");
+        
     } catch (error) {
         console.log("There was an error signing up", error);
         res.status(500).json(error);
@@ -72,12 +70,8 @@ router.post("/login", async (req, res) => {
         const validPassword = await userData.checkPassword(req.body.password);
         // If the passwords match, set up sessions with a 'loggedIn' variable set to `true`
         if (validPassword) {
-            req.session.save(() => {
-                req.session.user_id = userData.id;
-                req.session.logged_in = true;
-                req.session.username = userData.username;
-                res.status(200).json({ user: userData, message: "You are now logged in!" });
-            });
+            const userData = await setSession(req, userData);
+            res.status(200).json({ user: sessionUser, message: "You are now logged in!"});
         } else {
             res.status(400).json({ message: "Incorrect username or password, please try again" });
             return;
