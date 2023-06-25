@@ -1,40 +1,40 @@
-const router = require("express").Router();
-const { User } = require("../../models");
+const router = require('express').Router();
+const { User } = require('../../models');
 
 // GET login page
-router.get("/login", async (req, res) => {
+router.get('/login', async (req, res) => {
     try {
         // If the user is already logged in, redirect the request to another route
         if (req.session.logged_in) {
-            res.redirect("/");
+            res.redirect('/');
             return;
         }
         // Otherwise, render the 'login' template
-        res.render("login");
+        res.render('login');
     } catch (error) {
-        console.log("There was an error logging in", error);
+        console.log('There was an error logging in', error);
         res.status(500).json(error);
     }
 });
 
 // GET signup page
-router.get("/signup", async (req, res) => {
+router.get('/signup', async (req, res) => {
     try {
         // If the user is already logged in, redirect the request to another route
         if (req.session.logged_in) {
-            res.redirect("/");
+            res.redirect('/');
             return;
         }
         // Otherwise, render the 'signup' template
-        res.render("signup");
+        res.render('signup');
     } catch (error) {
-        console.log("There was an error signing up", error);
+        console.log('There was an error signing up', error);
         res.status(500).json(error);
     }
 });
 
 // POST new user to the database
-router.post("/signup", async (req, res) => {
+router.post('/signup', async (req, res) => {
     try {
         // Create a new user
         const newUser = await User.create({
@@ -44,16 +44,16 @@ router.post("/signup", async (req, res) => {
         // Set up sessions with a 'loggedIn' variable set to `true`
         const userData = await setSession(req, newUser);
         res.status(200).json(userData)
-        res.redirect("/");
+        res.redirect('/');
         
     } catch (error) {
-        console.log("There was an error signing up", error);
+        console.log('There was an error signing up', error);
         res.status(500).json(error);
     }
 });
 
 // POST login route
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         // Find the user who matches the posted username
         const userData = await User.findOne({
@@ -63,7 +63,7 @@ router.post("/login", async (req, res) => {
         });
         // If there is no user with that username, return an error message
         if (!userData) {
-            res.status(400).json({ message: "Incorrect username or password, please try again" });
+            res.status(400).json({ message: 'Incorrect username or password, please try again' });
             return;
         }
         // If the user is found, compare the entered password with the password hash stored in the database
@@ -71,19 +71,19 @@ router.post("/login", async (req, res) => {
         // If the passwords match, set up sessions with a 'loggedIn' variable set to `true`
         if (validPassword) {
             const userData = await setSession(req, userData);
-            res.status(200).json({ user: sessionUser, message: "You are now logged in!"});
+            res.status(200).json({ user: sessionUser, message: 'You are now logged in!'});
         } else {
-            res.status(400).json({ message: "Incorrect username or password, please try again" });
+            res.status(400).json({ message: 'Incorrect username or password, please try again' });
             return;
         }
     } catch (error) {
-        console.log("There was an error logging in", error);
+        console.log('There was an error logging in', error);
         res.status(500).json(error);
     }
 });
 
 // DELETE session route
-router.delete("/logout", async (req, res) => {
+router.delete('/logout', async (req, res) => {
     try {
         // When the user logs out, destroy the session
         if (req.session.logged_in) {
@@ -94,7 +94,7 @@ router.delete("/logout", async (req, res) => {
             res.status(409).end();
         }
     } catch (error) {
-        console.log("There was an error logging out", error);
+        console.log('There was an error logging out', error);
         res.status(500).json(error);
     }
 });

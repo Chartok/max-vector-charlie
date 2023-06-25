@@ -37,13 +37,13 @@ User.init(
     },
     {
         hooks: {
-            // Set up beforeCreate lifecycle "hook" functionality
+            // Set up beforeCreate lifecycle 'hook' functionality
             async beforeCreate(newUserData) {
                 try {
                     newUserData.password = await bcrypt.hash(newUserData.password, 10);
                     return newUserData;
                 } catch (error) {
-                    console.log("There was an error hashing the password", error);
+                    console.log('There was an error hashing the password', error);
                     return error;
                 }
             }
