@@ -1,5 +1,5 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/connection');
+const { Sequelize, DataTypes, Model } = require('sequelize');
 
 class Comment extends Model {}
 
