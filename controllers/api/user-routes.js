@@ -43,7 +43,7 @@ router.post("/signup", async (req, res) => {
         });
         // Set up sessions with a 'loggedIn' variable set to `true`
         const userData = await setSession(req, newUser);
-        res.status(200).json(userData);
+        res.status(200).json(userData)
         res.redirect("/");
         
     } catch (error) {
