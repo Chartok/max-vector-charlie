@@ -10,9 +10,9 @@ router.post('/', withAuth, async (req, res) => {
             user_id: req.session.user_id,
         });
         res.json(newComment);
-    } catch (err) {
-        console.log('There was an error creating a new comment', err);
-        res.status(500).json(err);
+    } catch (error) {
+        console.log('There was an error creating a new comment', error);
+        res.status(500).json(error);
     }
 });
 
