@@ -4,7 +4,7 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 const dotenv = require('dotenv')
 const authHelper = require('./utils/auth');
-const dateHelper = require('./utils/date');
+const dateHelper = require('./utils/date-helper');
 const sessionHelper = require('./utils/session-helper');
 
 const helpers = {
