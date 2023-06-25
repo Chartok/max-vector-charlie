@@ -17,9 +17,9 @@ router.get('/', withAuth, async (req, res) => {
             layout: 'dashboard',
             posts,
         });
-    } catch (err) {
-        console.log('There was an error getting all of the posts', err);
-        res.status(500).json(err);
+    } catch (error) {
+        console.log('There was an error getting all of the posts', error);
+        res.status(500).json(error);
     }
 });
 
@@ -41,9 +41,9 @@ router.get('/post/:id', withAuth, async (req, res) => {
         } else {
             res.status(404).end();
         }
-    } catch (err) {
-        console.log('There was an error getting the post', err);
-        res.status(500).json(err);
+    } catch (error) {
+        console.log('There was an error getting the post', error);
+        res.status(500).json(error);
     }
 });
 
@@ -65,9 +65,9 @@ router.get('/edit/:id', withAuth, async (req, res) => {
         } else {
             res.status(404).end();
         }
-    } catch (err) {
-        console.log('There was an error getting the post', err);
-        res.status(500).json(err);
+    } catch (error) {
+        console.log('There was an error getting the post', error);
+        res.status(500).json(error);
     }
 });
 
@@ -77,9 +77,9 @@ router.post('/', withAuth, async (req, res) => {
         const body = req.body;
         const newPost = await Post.create({ ...body, user_id: req.session.user_id });
         res.json(newPost);
-    } catch (err) {
-        console.log('There was an error getting all of the posts', err);
-        res.status(500).json(err);
+    } catch (error) {
+        console.log('There was an error getting all of the posts', error);
+        res.status(500).json(error);
     }
 });
 
@@ -94,9 +94,9 @@ router.put('/:id', withAuth, async (req, res) => {
             },
         });
         res.json(postData);
-    } catch (err) {
-        console.log('There was an error updating the post', err);
-        res.status(500).json(err);
+    } catch (error) {
+        console.log('There was an error updating the post', error);
+        res.status(500).json(error);
     }
 });
 
@@ -109,11 +109,10 @@ router.delete('/:id', withAuth, async (req, res) => {
                 user_id: req.session.user_id,
             },
         });
-        alert('Post deleted');
-        res.json(postData);
-    } catch (err) {
-        console.log('There was an error deleting the post', err);
-        res.status(500).json(err);
+        res.json({ message: 'Post deleted', postData });
+    } catch (error) {
+        console.log('There was an error deleting the post', error);
+        res.status(500).json(error);
     }
 });
 
