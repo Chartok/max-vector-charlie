@@ -1,10 +1,15 @@
 function setSession(req, userData) {
     return new Promise((resolve, reject) => {
-        req.session.save(() => {
             req.session.user_id = userData.id;
             req.session.logged_in = true;
             req.session.username = userData.username;
-            resolve();
+            req.session.save(error => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                } else {
+                    resolve(req.session);
+                }
         });
     });
 }

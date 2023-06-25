@@ -5,7 +5,7 @@ const { Model, DataTypes } = require('sequelize');
 class User extends Model {
     // Set up method to run on instance data (per user) to check password
     checkPassword(loginPw) {
-        return bcrypt.compareSync(loginPw, this.password);
+        return bcrypt.compare(loginPw, this.password);
     }
 }
 

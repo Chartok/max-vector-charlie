@@ -3,15 +3,19 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const helpers = require('./utils/helpers');
+const dotenv = require('dotenv').config();
+
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 9001;
+const PORT = process.env.PORT;
 
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
+const sessionSecret = process.env.SESSION_SECRET;
 const sesh = {
-    secret: 'Super secret secret',
+    secret: sessionSecret,
     cookie: {
         // Session will automatically expire in 10 minutes
         expires: 10 * 60 * 1000,
