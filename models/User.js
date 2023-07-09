@@ -43,7 +43,7 @@ User.init(
                     newUserData.password = await bcrypt.hash(newUserData.password, 10);
                     return newUserData;
                 } catch (error) {
-                    console.log('There was an error hashing the password', error);
+                    console.log('There was an error hashing the password');
                     return error;
                 }
             }

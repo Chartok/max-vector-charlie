@@ -18,7 +18,7 @@ router.get('/', withAuth, async (req, res) => {
             posts,
         });
     } catch (error) {
-        console.log('There was an error getting all of the posts', error);
+        console.log('There was an error getting all of the posts');
         res.status(500).json(error);
     }
 });
@@ -42,7 +42,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
             res.status(404).end();
         }
     } catch (error) {
-        console.log('There was an error getting the post', error);
+        console.log('There was an error getting the post');
         res.status(500).json(error);
     }
 });
@@ -66,7 +66,7 @@ router.get('/edit/:id', withAuth, async (req, res) => {
             res.status(404).end();
         }
     } catch (error) {
-        console.log('There was an error getting the post', error);
+        console.log('There was an error getting the post');
         res.status(500).json(error);
     }
 });
@@ -78,7 +78,7 @@ router.post('/', withAuth, async (req, res) => {
         const newPost = await Post.create({ ...body, user_id: req.session.user_id });
         res.json(newPost);
     } catch (error) {
-        console.log('There was an error getting all of the posts', error);
+        console.log('There was an error getting all of the posts');
         res.status(500).json(error);
     }
 });
@@ -95,7 +95,7 @@ router.put('/:id', withAuth, async (req, res) => {
         });
         res.json(postData);
     } catch (error) {
-        console.log('There was an error updating the post', error);
+        console.log('There was an error updating the post');
         res.status(500).json(error);
     }
 });
@@ -111,7 +111,7 @@ router.delete('/:id', withAuth, async (req, res) => {
         });
         res.json({ message: 'Post deleted', postData });
     } catch (error) {
-        console.log('There was an error deleting the post', error);
+        console.log('There was an error deleting the post');
         res.status(500).json(error);
     }
 });

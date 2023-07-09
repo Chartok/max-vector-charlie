@@ -12,7 +12,7 @@ router.get('/login', async (req, res) => {
         // Otherwise, render the 'login' template
         res.render('login');
     } catch (error) {
-        console.log('There was an error logging in', error);
+        console.log('There was an error logging in');
         res.status(500).json(error);
     }
 });
@@ -28,7 +28,7 @@ router.get('/signup', async (req, res) => {
         // Otherwise, render the 'signup' template
         res.render('signup');
     } catch (error) {
-        console.log('There was an error signing up', error);
+        console.log('There was an error signing up');
         res.status(500).json(error);
     }
 });
@@ -48,7 +48,7 @@ router.post('/signup', async (req, res) => {
         res.status(200).json({ message: 'User is registered!', userData })
 
     } catch (error) {
-        console.log('There was an error signing up', error);
+        console.log('There was an error signing up');
         res.status(500).json(error);
     }
 });
@@ -78,7 +78,7 @@ router.post('/login', async (req, res) => {
             res.status(200).json({ message: 'You are now logged in!' });
         });
     } catch (error) {
-        console.log('There was an error logging in', error);
+        console.log('There was an error logging in');
         res.status(500).json(error);
     }
 });
@@ -95,7 +95,7 @@ router.delete('/logout', async (req, res) => {
             res.status(409).end();
         }
     } catch (error) {
-        console.log('There was an error logging out', error);
+        console.log('There was an error logging out');
         res.status(500).json(error);
     }
 });
