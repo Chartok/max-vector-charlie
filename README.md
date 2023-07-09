@@ -1,47 +1,45 @@
+# Tek Blog
 
-  # Tek Blog
+## Description
 
-  ## Description
+A simple blog post for technology enthusiasts to post blogs
 
-  A simple blog post for technology enthusiasts to post blogs
+## Table of Contents
 
-  ## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [License](#license)
+- [Questions](#questions)
 
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [Contributing](#contributing)
-  * [Tests](#tests)
-  * [License](#license)
-  * [Questions](#questions)
+## Installation
 
-  ## Installation
+Visit the link
 
-  Visit the link
+## Usage
 
-  ## Usage
+Use as a normal blog posting platform.
 
-  Use as a normal blog posting platform.
+## Contributing
 
-  ## Contributing
+Contact me on GitHub
 
-  Contact me on GitHub
+## Tests
 
-  ## Tests
+N/A
 
-  N/A
+## License
 
-  ## License
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+MIT License
+<https://opensource.org/licenses/MIT>
 
-  ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-  MIT License
-  https://opensource.org/licenses/MIT
+## Questions
 
-  ## Questions
+If you have any questions, please contact me at <m.bhimjee@outlook.com>.
+You can also find me on GitHub at Chartok.
 
-  If you have any questions, please contact me at m.bhimjee@outlook.com.
-  You can also find me on GitHub at Chartok.
+## Credits
 
-  ## Credits
-
-  Mohammed "Asad" Bhimjee
-  
+Mohammed "Asad" Bhimjee
