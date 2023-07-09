@@ -1,13 +1,8 @@
 const exphbs = require('express-handlebars');
 const path = require('path');
+const helpers = require('./utils/auth', './utils/date-helper', './session-helper');
 
 const viewsDir = path.join(__dirname, 'views');
-
-const helpers = {
-    ...authHelper,
-    ...dateHelper,
-    ...sessionHelper
-};
 
 const hbs = exphbs.create({
     helpers,

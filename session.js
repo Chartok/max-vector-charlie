@@ -1,6 +1,6 @@
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const sequelize = require('../config/connection');
+const sequelize = require('./config/connection');
 
 const sessionSecret = process.env.SESSION_SECRET;
 const sesh = {
@@ -20,4 +20,4 @@ const sesh = {
     })
 };
 
-app.use(session(sesh));
+module.exports = { sesh };
