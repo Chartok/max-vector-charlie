@@ -6,6 +6,9 @@ const dotenv = require('dotenv')
 const authHelper = require('./utils/auth');
 const dateHelper = require('./utils/date-helper');
 const sessionHelper = require('./utils/session-helper');
+const sequelize = require('./config/connection');
+
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const helpers = {
     ...authHelper,
@@ -19,8 +22,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-const sequelize = require('./config/connection');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sessionSecret = process.env.SESSION_SECRET;
 const sesh = {
