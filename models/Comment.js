@@ -7,7 +7,10 @@ Comment.init(
     {
         body: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+            }
         },
     },
     {
