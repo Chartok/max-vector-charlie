@@ -12,7 +12,7 @@ router.post('/', withAuth, async (req, res) => {
         res.json(newComment);
     } catch (error) {
         console.log('There was an error creating a new comment');
-        res.status(500).json(error);
+        res.status();
     }
 });
 

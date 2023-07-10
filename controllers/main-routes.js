@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
 
 // Get all posts for main page
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
     try {
         // Wait for all posts to be retrieved from the database with username for each post
         const postData = await Post.findAll({
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET a single post for main page
-router.get('/post/:id', async (req, res) => {
+router.get('/post/:id', withAuth, async (req, res) => {
     try {
 
         // Wait for the post to be retrieved from the database

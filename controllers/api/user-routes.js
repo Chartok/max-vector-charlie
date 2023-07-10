@@ -1,38 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
-// GET login page
-router.get('/login', async (req, res) => {
-    try {
-        // If the user is already logged in, redirect the request to another route
-        if (req.session.logged_in) {
-            res.redirect('/');
-            return;
-        }
-        // Otherwise, render the 'login' template
-        res.render('login');
-    } catch (error) {
-        console.log('There was an error logging in');
-        res.status(500).json(error);
-    }
-});
-
-// GET signup page
-router.get('/signup', async (req, res) => {
-    try {
-        // If the user is already logged in, redirect the request to another route
-        if (req.session.logged_in) {
-            res.redirect('/');
-            return;
-        }
-        // Otherwise, render the 'signup' template
-        res.render('signup');
-    } catch (error) {
-        console.log('There was an error signing up');
-        res.status(500).json(error);
-    }
-});
-
 // POST new user to the database
 router.post('/signup', async (req, res) => {
     try {
