@@ -43,7 +43,14 @@ const sesh = {
 
 app.use(session(sesh));
 
-const hbs = exphbs.create({ helpers });
+const viewsDir = path.join(__dirname, 'views');
+const hbs = exphbs.create({
+        helpers,
+        layoutsDir: path.join(viewsDir, 'layouts'),
+        defaultLayout: 'main',
+        partialsDir: path.join(viewsDir),
+        extname: '.handlebars'
+});
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');

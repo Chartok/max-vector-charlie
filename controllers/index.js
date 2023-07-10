@@ -11,7 +11,7 @@ router.use('/api/comment', commentRoutes);
 // Handlebars routes
 router.get('/', async (req, res) => {
     try {
-        res.render('dashboard');
+        res.render('home');
     } catch (error) {
         console.log('There was an error getting to the dashboard');
         res.statusCode.json(error);
