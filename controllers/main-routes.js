@@ -52,7 +52,7 @@ router.get('/post/:id', async (req, res) => {
 // GET login page
 router.get('/login', async (req, res) => {
     try {
-        // If the user is already logged in, redirect the request to another route
+        // If the user is already logged in when the login route is accessed, redirect the request to the homepage
         if (req.session.logged_in) {
             res.redirect('/');
             return;
@@ -68,7 +68,7 @@ router.get('/login', async (req, res) => {
 // GET signup page
 router.get('/signup', async (req, res) => {
     try {
-        // If the user is already logged in, redirect the request to another route
+        // If the user is already logged in when the signup route is accessed, redirect the request to the homepage
         if (req.session.logged_in) {
             res.redirect('/');
             return;
