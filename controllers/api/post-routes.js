@@ -2,43 +2,19 @@ const router = require('express').Router();
 const { Post } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// GET edit post form
-router.get('/edit/:id', withAuth, async (req, res) => {
-    try {
-        const postData = await Post.findByPk(req.params.id, {
-            include: [
-                User,
-                {
-                    model: Comment,
-                    include: [User],
-                },
-            ],
-        });
-        if (postData) {
-            const post = postData.get({ plain: true });
-            res.render('edit-post', { post });
-        } else {
-            res.status(404).end();
-        }
-    } catch (error) {
-        console.log('There was an error getting the post');
-        res.status(500).json(error);
-    }
-});
-
-// POST new post
+// CREATE new post
 router.post('/', withAuth, async (req, res) => {
     try {
         const body = req.body;
         const newPost = await Post.create({ ...body, user_id: req.session.user_id });
         res.json(newPost);
     } catch (error) {
-        console.log('There was an error getting all of the posts');
-        res.status(500).json(error);
+        console.error('There was an error getting all of the posts');
+        throw error;
     }
 });
 
-// PUT update posts
+// UPDATE posts
 router.put('/:id', withAuth, async (req, res) => {
     try {
         const body = req.body;
@@ -50,8 +26,8 @@ router.put('/:id', withAuth, async (req, res) => {
         });
         res.json(postData);
     } catch (error) {
-        console.log('There was an error updating the post');
-        res.status(500).json(error);
+        console.error('There was an error updating the post');
+        throw error;
     }
 });
 
@@ -66,9 +42,8 @@ router.delete('/:id', withAuth, async (req, res) => {
         });
         res.json({ message: 'Post deleted', postData });
     } catch (error) {
-        console.log('There was an error deleting the post');
-        res.status(500).json(error);
-    }
+        console.error('There was an error deleting the post');
+        throw error;}
 });
 
 module.exports = router;
