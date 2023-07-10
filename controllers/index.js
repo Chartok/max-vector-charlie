@@ -1,17 +1,17 @@
 const router = require('express').Router();
 
-const userRoutes = require('./api/user-routes');
-const postRoutes = require('./api');
-const commentRoutes = require('./api/comment-routes');
 
-router.use('/api/user', userRoutes);
-router.use('/api/post', postRoutes);
-router.use('/api/comment', commentRoutes);
+const apiRoutes = require('./api');
+const mainRoutes = require('./main-routes');
+
+
+router.use('/api/', apiRoutes);
+router.use('/', mainRoutes);
 
 // Handlebars routes
 router.get('/', async (req, res) => {
     try {
-        res.render('home');
+        res.render('dashboard', { layout: 'dashboard' });
     } catch (error) {
         console.log('There was an error getting to the dashboard');
         res.statusCode.json(error);

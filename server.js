@@ -41,6 +41,7 @@ const sesh = {
     })
 };
 
+app.use(require('./controllers/'));
 app.use(session(sesh));
 
 const viewsDir = path.join(__dirname, 'views');
@@ -54,12 +55,12 @@ const hbs = exphbs.create({
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+app.set('views', viewsDir);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get(require('./controllers'));
 
 app.listen(PORT, () => {
     console.log(`App listening on ${PORT}!`);
