@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
-// POST new user to the database
+// CREATE new user to the database
 router.post('/', async (req, res) => {
     try {
         // Create new user
@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// POST login route
+// POST login route 
 router.post('/login', async (req, res) => {
     try {
         // Find the user who matches the posted username
@@ -45,8 +45,8 @@ router.post('/login', async (req, res) => {
             res.status(200).json({ message: 'You are now logged in!' });
         });
     } catch (error) {
-        console.log('There was an error logging in');
-        res.status(500).json(error);
+        console.error('There was an error logging in');
+        throw error;
     }
 });
 
@@ -58,12 +58,13 @@ router.delete('/logout', async (req, res) => {
             req.session.destroy(() => {
                 res.status(204).end();
             });
+            // Else if the user is not logged in, throw new error
         } else {
-            res.status(409).end();
+            throw new Error('You must be logged in to logout!'); 
         }
     } catch (error) {
-        console.log('There was an error logging out');
-        res.status(500).json(error);
+        console.error('There was an error logging out');
+        throw error;
     }
 });
 

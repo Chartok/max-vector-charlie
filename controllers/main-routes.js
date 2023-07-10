@@ -16,8 +16,8 @@ router.get('/', async (req, res) => {
             posts,
         });
     } catch (error) {
-        console.log('There was an error getting all of the posts', res);
-        res.status();
+    console.error('There was an error getting all of the posts');
+    throw error;
     }
 });
 
