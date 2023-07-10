@@ -1,14 +1,12 @@
 const router = require('express').Router();
-const { Post } = require('../models');
+const { Post, User, Comment } = require('../models');
 
 // Get all posts for main page
 router.get('/', async (req, res) => {
     try {
-        // Wait for all posts to be retrieved from the database
+        // Wait for all posts to be retrieved from the database with username for each post
         const postData = await Post.findAll({
-            where: {
-                user_id: req.session.user_id,
-            },
+            include: [User],
         });
 
         // Serialize the data so the template can read it then render it
