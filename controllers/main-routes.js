@@ -4,7 +4,7 @@ const { Post, User, Comment } = require('../models');
 // Get all posts for main page
 router.get('/', async (req, res) => {
     try {
-        // Wait for all posts to be retrieved from the database with username for each post
+        // Wait for all posts to be retrieved from the database
         const postData = await Post.findAll({
             include: [User],
         });
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
         });
     } catch (error) {
         console.error('There was an error getting all of the posts');
-        throw error;
+        
     }
 });
 
@@ -26,7 +26,7 @@ router.get('/post/:id', async (req, res) => {
     try {
 
         // Wait for the post to be retrieved from the database
-        const postData = await Post.findByPk(req.params.userData.id, {
+        const postData = await Post.findByPk(req.params.id, {
             include: [
                 User,
                 {
@@ -49,27 +49,27 @@ router.get('/post/:id', async (req, res) => {
 });
 
 // GET login page
-router.get('/login', async (req, res) => {
+router.get('/login', (req, res) => {
     try {
         // If the user is already logged in when the login route is accessed, redirect the request to the dashboard
-        if (req.session.userData.id) {
-            res.redirect('/dashboard');
+        if (req.session.user_id) {
+            res.redirect('/');
             return;
         }
         // Otherwise, render the 'login' template
         res.render('login');
     } catch (error) {
         console.error('There was an error logging in');
-        throw error;
+        
     }
 });
 
 // GET signup page
-router.get('/signup', async (req, res) => {
+router.get('/signup', (req, res) => {
     try {
         // If the user is already logged in when the signup route is accessed, redirect the request to the dashboard
-        if (req.session.userData.id) {
-            res.redirect('/dashboard');
+        if (req.session.user_id) {
+            res.redirect('/');
             return;
         }
         // Otherwise, render the 'signup' template

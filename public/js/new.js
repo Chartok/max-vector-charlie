@@ -18,7 +18,7 @@ const newPostLogic = async (event) => {
 
     } catch (error) {
         console.error('There was an error creating the post');
-        throw error;
+        
     }
 };
 

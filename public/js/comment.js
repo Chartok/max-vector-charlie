@@ -21,7 +21,7 @@ const commentLogic = async (event) => {
 
     } catch (error) {
         console.error('There was an error creating the comment');
-        throw error;
+        
     }
 };
 

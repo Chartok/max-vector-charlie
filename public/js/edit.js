@@ -19,7 +19,7 @@ const editPostLogic = async (event) => {
 
     } catch (error) {
         console.error('There was an error updating the post');
-        throw error;
+        
     }
 };
 
@@ -33,7 +33,7 @@ const deletePostLogic = async (event) => {
         document.location.replace('/dashboard');
     } catch (error) {
         console.error('There was an error updating the post');
-        throw error;
+        
     }
 };
 

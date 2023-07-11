@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 
     } catch (error) {
         console.error('There was an error signing up');
-        throw error;
+        
     }
 });
 
@@ -46,7 +46,7 @@ router.post('/login', async (req, res) => {
         });
     } catch (error) {
         console.error('There was an error logging in');
-        throw error;
+        
     }
 });
 
@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
 router.delete('/logout', async (req, res) => {
     try {
         // When the user logs out, destroy the session
-        if (req.session.userData.id) {
+        if (req.session.user_id) {
             req.session.destroy(() => {
                 res.status(204).end();
             });
@@ -64,7 +64,7 @@ router.delete('/logout', async (req, res) => {
         }
     } catch (error) {
         console.error('There was an error logging out');
-        throw error;
+        
     }
 });
 

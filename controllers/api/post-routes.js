@@ -10,7 +10,7 @@ router.post('/', withAuth, async (req, res) => {
         res.json(newPost);
     } catch (error) {
         console.error('There was an error getting all of the posts');
-        throw error;
+        
     }
 });
 
@@ -27,7 +27,7 @@ router.put('/:id', withAuth, async (req, res) => {
         res.json(postData);
     } catch (error) {
         console.error('There was an error updating the post');
-        throw error;
+        
     }
 });
 
@@ -43,7 +43,7 @@ router.delete('/:id', withAuth, async (req, res) => {
         res.json({ message: 'Post deleted', postData });
     } catch (error) {
         console.error('There was an error deleting the post');
-        throw error;}
+        }
 });
 
 module.exports = router;

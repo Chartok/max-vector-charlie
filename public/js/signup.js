@@ -21,7 +21,7 @@ const signupLogic = async (event) => {
         }
     } catch (error) {
         console.error('There was an error signing up');
-        throw error;
+        
     }
 };
 

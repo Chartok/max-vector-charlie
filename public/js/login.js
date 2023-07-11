@@ -21,7 +21,7 @@ const loginLogic = async (event) => {
         }
     } catch (error) {
         console.error('There was an error logging in');
-        throw error;
+        
     }
 };
 

@@ -5,11 +5,7 @@ const withAuth = require('../utils/auth');
 // GET all posts for logged in users
 router.get('/', withAuth, async (req, res) => {
     try {
-        const postData = await Post.findAll({
-            where: {
-                user_id: req.session.userData.id,
-            },
-        });
+        const postData = await Post.findAll(req.session.user_id);
 
         const posts = postData.map((post) => post.get({ plain: true }));
 
@@ -19,7 +15,7 @@ router.get('/', withAuth, async (req, res) => {
         });
     } catch (error) {
         console.error('There was an error getting all of the posts');
-        throw error;
+        
     }
 });
 
@@ -33,7 +29,7 @@ router.get('/new', withAuth, (req, res) => {
 // GET edit post page
 router.get('/edit/:id', withAuth, async (req, res) => {
     try {
-        const postData = await Post.findByPk(req.params.userData.id);
+        const postData = await Post.findByPk(req.params.id);
 
         if (postData) {
             const post = postData.get({ plain: true });
@@ -47,7 +43,7 @@ router.get('/edit/:id', withAuth, async (req, res) => {
         }
     } catch (error) {
         console.error('There was an error getting the edit-post');
-        throw error;
+        
     }
 });
 

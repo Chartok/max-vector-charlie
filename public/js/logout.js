@@ -12,7 +12,7 @@ const logoutLogic = async () => {
         }
     } catch (error) {
         console.error('There was an error logging out');
-        throw error;
+        
     }
 }
 
