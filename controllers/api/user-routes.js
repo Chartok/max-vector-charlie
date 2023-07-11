@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
 router.delete('/logout', async (req, res) => {
     try {
         // When the user logs out, destroy the session
-        if (req.session.user_id) {
+        if (req.session.userData.id) {
             req.session.destroy(() => {
                 res.status(204).end();
             });

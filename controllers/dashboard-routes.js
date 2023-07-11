@@ -7,7 +7,7 @@ router.get('/', withAuth, async (req, res) => {
     try {
         const postData = await Post.findAll({
             where: {
-                user_id: req.session.user_id,
+                user_id: req.session.userData.id,
             },
         });
 
@@ -33,7 +33,7 @@ router.get('/new', withAuth, (req, res) => {
 // GET edit post page
 router.get('/edit/:id', withAuth, async (req, res) => {
     try {
-        const postData = await Post.findByPk(req.params.id);
+        const postData = await Post.findByPk(req.params.userData.id);
 
         if (postData) {
             const post = postData.get({ plain: true });

@@ -26,7 +26,7 @@ router.get('/post/:id', async (req, res) => {
     try {
 
         // Wait for the post to be retrieved from the database
-        const postData = await Post.findByPk(req.params.id, {
+        const postData = await Post.findByPk(req.params.userData.id, {
             include: [
                 User,
                 {
@@ -52,7 +52,7 @@ router.get('/post/:id', async (req, res) => {
 router.get('/login', async (req, res) => {
     try {
         // If the user is already logged in when the login route is accessed, redirect the request to the dashboard
-        if (req.session.user_id) {
+        if (req.session.userData.id) {
             res.redirect('/dashboard');
             return;
         }
@@ -68,7 +68,7 @@ router.get('/login', async (req, res) => {
 router.get('/signup', async (req, res) => {
     try {
         // If the user is already logged in when the signup route is accessed, redirect the request to the dashboard
-        if (req.session.user_id) {
+        if (req.session.userData.id) {
             res.redirect('/dashboard');
             return;
         }

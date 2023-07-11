@@ -6,7 +6,7 @@ const withAuth = require('../../utils/auth');
 router.post('/', withAuth, async (req, res) => {
     try {
         const body = req.body;
-        const newPost = await Post.create({ ...body, user_id: req.session.user_id });
+        const newPost = await Post.create({ ...body, user_id: req.session.userData.id });
         res.json(newPost);
     } catch (error) {
         console.error('There was an error getting all of the posts');
@@ -21,7 +21,7 @@ router.put('/:id', withAuth, async (req, res) => {
         const postData = await Post.update(body, {
             where: {
                 id: req.params.id,
-                user_id: req.session.user_id,
+                user_id: req.session.userData.id,
             },
         });
         res.json(postData);
@@ -37,7 +37,7 @@ router.delete('/:id', withAuth, async (req, res) => {
         const postData = await Post.destroy({
             where: {
                 id: req.params.id,
-                user_id: req.session.user_id,
+                user_id: req.session.userData.id,
             },
         });
         res.json({ message: 'Post deleted', postData });
