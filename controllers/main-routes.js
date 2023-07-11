@@ -16,8 +16,8 @@ router.get('/', async (req, res) => {
             posts,
         });
     } catch (error) {
-    console.error('There was an error getting all of the posts');
-    throw error;
+        console.error('There was an error getting all of the posts');
+        throw error;
     }
 });
 
@@ -40,8 +40,7 @@ router.get('/post/:id', async (req, res) => {
         if (postData) {
             const post = postData.get({ plain: true });
             res.render('single-post', { post });
-        } else {
-            res.statusCode.end();
+            return;
         }
     } catch (error) {
         console.log('There was an error getting the post');
@@ -52,25 +51,25 @@ router.get('/post/:id', async (req, res) => {
 // GET login page
 router.get('/login', async (req, res) => {
     try {
-        // If the user is already logged in when the login route is accessed, redirect the request to the homepage
-        if (req.session.logged_in) {
-            res.redirect('/');
+        // If the user is already logged in when the login route is accessed, redirect the request to the dashboard
+        if (req.session.user_id) {
+            res.redirect('/dashboard');
             return;
         }
         // Otherwise, render the 'login' template
         res.render('login');
     } catch (error) {
-        console.log('There was an error logging in');
-        res.status();
+        console.error('There was an error logging in');
+        throw error;
     }
 });
 
 // GET signup page
 router.get('/signup', async (req, res) => {
     try {
-        // If the user is already logged in when the signup route is accessed, redirect the request to the homepage
-        if (req.session.logged_in) {
-            res.redirect('/');
+        // If the user is already logged in when the signup route is accessed, redirect the request to the dashboard
+        if (req.session.user_id) {
+            res.redirect('/dashboard');
             return;
         }
         // Otherwise, render the 'signup' template

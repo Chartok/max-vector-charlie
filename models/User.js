@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 
 class User extends Model {
     // Set up method to run on instance data (per user) to check password
-    checkPassword(loginPw) {
-        return bcrypt.compare(loginPw, this.password);
+    checkPassword(userPw) {
+        return bcrypt.compare(userPw, this.password);
     }
 }
 

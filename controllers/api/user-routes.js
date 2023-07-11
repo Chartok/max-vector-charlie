@@ -42,7 +42,7 @@ router.post('/login', async (req, res) => {
             req.session.user_id = userData.id;
             req.session.logged_in = true;
 
-            res.status(200).json({ message: 'You are now logged in!' });
+            res.status(200).json({ user: userData, message: 'You are now logged in!' });
         });
     } catch (error) {
         console.error('There was an error logging in');
@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
 router.delete('/logout', async (req, res) => {
     try {
         // When the user logs out, destroy the session
-        if (req.session.logged_in) {
+        if (req.session.user_id) {
             req.session.destroy(() => {
                 res.status(204).end();
             });
