@@ -14,7 +14,7 @@ router.get('/', withAuth, async (req, res) => {
             posts,
         });
     } catch (error) {
-        console.error('There was an error getting all of the posts');
+        console.error('There was an error getting all of the posts for your dashboard');
         
     }
 });
