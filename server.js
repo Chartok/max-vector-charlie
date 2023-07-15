@@ -33,13 +33,10 @@ const sesh = {
 
 app.use(session(sesh));
 
-// const viewsDir = path.join(__dirname, 'views');
-
 const hbs = exphbs.create({ helpers });
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-// app.set('views', viewsDir);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
