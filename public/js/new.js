@@ -9,7 +9,7 @@ const newPostLogic = async (event) => {
             method: 'POST',
             body: JSON.stringify({
                 title: titleElem.value,
-                content: contentElem.value,
+                body: contentElem.value,
             }),
             headers: { 'Content-Type': 'application/json' },
         });

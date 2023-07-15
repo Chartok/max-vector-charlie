@@ -5,7 +5,7 @@ const loginLogic = async (event) => {
     const usrPwElem = document.querySelector('#password-login');
 
     try {
-        const loginResponse = await fetch('/api/users/login', {
+        const loginResponse = await fetch('/api/user/login', {
             method: 'POST',
             body: JSON.stringify({
                 username: usrNameElem.value,

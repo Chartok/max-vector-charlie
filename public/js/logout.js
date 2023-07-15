@@ -1,6 +1,6 @@
 const logoutLogic = async () => {
     try {
-        const logoutResponse = await fetch('/api/users/logout', {
+        const logoutResponse = await fetch('/api/user/logout', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
         });
