@@ -9,8 +9,7 @@ router.post('/', async (req, res) => {
             username: req.body.username,
             password: req.body.password,
         });
-        // Hash the new user's password and store the resulting hash in the database
-        req.body.password = await bcrypt.hash(req.body.password, 10);
+
         // Set up sessions to save new user data
         req.session.save(() => {
             req.session.user_id = newUser.id;
@@ -21,6 +20,7 @@ router.post('/', async (req, res) => {
 
     } catch (error) {
         console.error('There was an error signing up');
+        console.log(res);
         
     }
 });
@@ -35,14 +35,17 @@ router.post('/login', async (req, res) => {
             },
         });
         // If there is no user with that username or password is incorrect, return an error message
-        if (!userData || !(await bcrypt.compare(req.body.password, userData.password))) {
-            throw new Error('Incorrect username or password, please try again');
+        if (!userData) {
+
+            res.status(400).json({ message: 'Incorrect username or password, please try again' });
+            return;
         }
         // If the user is found, compare the entered password with the password hash stored in the database
-        const validPassword = await bcrypt.compare(req.body.password, userData.password);
+        const validPassword = await checkPassword(req.body.password);
 
         if (!validPassword) {
-            res.status().json({ message: 'No account found!' });
+            res.status(400).json({ message: 'No account found!' });
+            return;
         }
         // If the passwords match, set up sessions with a 'loggedIn' variable set to `true`
         req.session.save(() => {

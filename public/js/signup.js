@@ -1,11 +1,11 @@
 const signupLogic = async (event) => {
     event.preventDefault();
 
-    const usrNameElem = document.querySelector('#username-signup');
-    const usrPwElem = document.querySelector('#password-signup');
+    const usrNameElem = document.querySelector('#username-input-signup');
+    const usrPwElem = document.querySelector('#password-input-signup');
 
     try {
-        const signupResponse = await fetch('/api/users/signup', {
+        const signupResponse = await fetch('/api/user', {
             method: 'POST',
             body: JSON.stringify({
                 username: usrNameElem.value,
@@ -21,6 +21,7 @@ const signupLogic = async (event) => {
         }
     } catch (error) {
         console.error('There was an error signing up');
+        console.log(signupResponse);
         
     }
 };
