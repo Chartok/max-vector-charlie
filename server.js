@@ -3,25 +3,15 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const dotenv = require('dotenv')
-const authHelper = require('./utils/auth');
-const dateHelper = require('./utils/date-helper');
-const sessionHelper = require('./utils/session-helper');
-const sequelize = require('./config/connection');
-
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-
-const helpers = {
-    ...authHelper,
-    ...dateHelper,
-    ...sessionHelper
-};
-    
-
-dotenv.config();
+const helpers = require('./utils/helpers');
 
 const app = express();
 const PORT = process.env.PORT;
 
+const sequelize = require('./config/connection');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+dotenv.config();
 
 const sessionSecret = process.env.SESSION_SECRET;
 const sesh = {
@@ -41,26 +31,21 @@ const sesh = {
     })
 };
 
-app.use(require('./controllers/'));
 app.use(session(sesh));
 
-const viewsDir = path.join(__dirname, 'views');
-const hbs = exphbs.create({
-        helpers,
-        layoutsDir: path.join(viewsDir, 'layouts'),
-        defaultLayout: 'main',
-        partialsDir: path.join(viewsDir),
-        extname: '.handlebars'
-});
+// const viewsDir = path.join(__dirname, 'views');
+
+const hbs = exphbs.create({ helpers });
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-app.set('views', viewsDir);
+// app.set('views', viewsDir);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(require('./controllers/'));
 
 app.listen(PORT, () => {
     console.log(`App listening on ${PORT}!`);

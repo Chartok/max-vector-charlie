@@ -18,17 +18,13 @@
   },
   "homepage": "https://github.com/Chartok/max-vector-charlie#readme",
   "dependencies": {
-    "bcrypt": "^5.1.0",
-    "connect-session-sequelize": "^7.1.7",
-    "dotenv": "^16.3.1",
+    "bcrypt": "^4.0.1",
+    "connect-session-sequelize": "^6.1.1",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-handlebars": "^7.0.7",
+    "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
-    "mysql2": "^3.5.1",
-    "sequelize": "^6.32.1"
-  },
-  "devDependencies": {
-    "@types/express-handlebars": "^6.0.0",
-    "nodemon": "^3.0.1"
+    "mysql2": "^2.0.1",
+    "sequelize": "^5.21.2"
   }
 }
