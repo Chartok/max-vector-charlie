@@ -4,12 +4,12 @@ const withAuth = require('../../utils/auth');
 
 // CREATE new post
 router.post('/', withAuth, async (req, res) => {
+    const body = req.body;
     try {
-        const body = req.body;
-        const newPost = await Post.create({ ...body, user_id: req.session.userData.id });
+        const newPost = await Post.create({ ...body, user_id: req.session.user_id });
         res.json(newPost);
     } catch (error) {
-        console.error('There was an error getting all of the posts');
+        console.log('There was an error getting all of the posts', newPost);
         
     }
 });

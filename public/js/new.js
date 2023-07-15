@@ -1,15 +1,15 @@
 const newPostLogic = async (event) => {
     event.preventDefault();
 
-    const titleElem = document.querySelector('input[name="post-title"]').value;
-    const contentElem = document.querySelector('textarea[name="post-body"]').value;
+    const title = document.querySelector('input[id="post-title"]').value;
+    const body = document.querySelector('textarea[id="post-body"]').value;
 
     try {
         await fetch('/api/post', {
             method: 'POST',
             body: JSON.stringify({
-                titleElem,
-                contentElem,
+                title,
+                body,
             }),
             headers: { 'Content-Type': 'application/json' },
         });
