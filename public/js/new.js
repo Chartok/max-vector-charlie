@@ -1,15 +1,15 @@
 const newPostLogic = async (event) => {
     event.preventDefault();
 
-    const titleElem = document.querySelector('#title');
-    const contentElem = document.querySelector('#body');
+    const titleElem = document.querySelector('input[name="post-title"]').value;
+    const contentElem = document.querySelector('textarea[name="post-body"]').value;
 
     try {
         await fetch('/api/post', {
             method: 'POST',
             body: JSON.stringify({
-                title: titleElem.value,
-                body: contentElem.value,
+                titleElem,
+                contentElem,
             }),
             headers: { 'Content-Type': 'application/json' },
         });
@@ -22,4 +22,4 @@ const newPostLogic = async (event) => {
     }
 };
 
-document.querySelector('#new-post').addEventListener('submit', newPostLogic);
+document.querySelector('#new-post-form').addEventListener('submit', newPostLogic);
