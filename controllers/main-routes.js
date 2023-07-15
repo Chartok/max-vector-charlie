@@ -40,7 +40,8 @@ router.get('/post/:id', async (req, res) => {
         if (postData) {
             const post = postData.get({ plain: true });
             res.render('single-post', { post });
-            return;
+        } else {
+            res.status().end();
         }
     } catch (error) {
         console.log('There was an error getting the post');
@@ -52,7 +53,7 @@ router.get('/post/:id', async (req, res) => {
 router.get('/login', (req, res) => {
     try {
         // If the user is already logged in when the login route is accessed, redirect the request to the dashboard
-        if (req.session.user_id) {
+        if (req.session.logged_in) {
             res.redirect('/');
             return;
         }
@@ -68,7 +69,7 @@ router.get('/login', (req, res) => {
 router.get('/signup', (req, res) => {
     try {
         // If the user is already logged in when the signup route is accessed, redirect the request to the dashboard
-        if (req.session.user_id) {
+        if (req.session.logged_in) {
             res.redirect('/');
             return;
         }

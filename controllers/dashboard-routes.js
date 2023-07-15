@@ -5,7 +5,11 @@ const withAuth = require('../utils/auth');
 // GET all posts for logged in users
 router.get('/', withAuth, async (req, res) => {
     try {
-        const postData = await Post.findAll(req.session.user_id);
+        const postData = await Post.findAll({
+            where: {
+                user_id: req.session.user_id,
+            }
+        });
 
         const posts = postData.map((post) => post.get({ plain: true }));
 
@@ -14,6 +18,7 @@ router.get('/', withAuth, async (req, res) => {
             posts,
         });
     } catch (error) {
+        res.redirect('login')
         console.error('There was an error getting all of the posts for your dashboard');
         
     }
@@ -42,6 +47,7 @@ router.get('/edit/:id', withAuth, async (req, res) => {
             res.status(404).end();
         }
     } catch (error) {
+        res.redirect('login');
         console.error('There was an error getting the edit-post');
         
     }

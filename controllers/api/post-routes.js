@@ -17,14 +17,17 @@ router.post('/', withAuth, async (req, res) => {
 // UPDATE posts
 router.put('/:id', withAuth, async (req, res) => {
     try {
-        const body = req.body;
-        const postData = await Post.update(body, {
+        const [posts] = await Post.update(req.body, {
             where: {
                 id: req.params.id,
-                user_id: req.session.userData.id,
             },
         });
-        res.json(postData);
+        
+        if (posts > 0) {
+            res.status(200).end
+        } else {
+            res.status(404).end();
+        }
     } catch (error) {
         console.error('There was an error updating the post');
         
@@ -34,13 +37,18 @@ router.put('/:id', withAuth, async (req, res) => {
 // DELETE posts
 router.delete('/:id', withAuth, async (req, res) => {
     try {
-        const postData = await Post.destroy({
+        const [posts] = await Post.destroy({
             where: {
                 id: req.params.id,
-                user_id: req.session.userData.id,
             },
         });
-        res.json({ message: 'Post deleted', postData });
+        
+        if (posts > 0) {
+            res.status(200).end();
+            console.log('The post has been deleted')
+        } else {
+            res.status(404).end();
+        }
     } catch (error) {
         console.error('There was an error deleting the post');
         }

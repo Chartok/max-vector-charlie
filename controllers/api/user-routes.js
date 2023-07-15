@@ -11,9 +11,13 @@ router.post('/', async (req, res) => {
         });
         // Hash the new user's password and store the resulting hash in the database
         req.body.password = await bcrypt.hash(req.body.password, 10);
-        // Set up sessions with a 'loggedIn' variable set to `true`
-        const userData = await setSession(req, newUser);
-        res.status(200).json({ message: 'User is registered!', userData })
+        // Set up sessions to save new user data
+        req.session.save(() => {
+            req.session.user_id = newUser.id;
+            req.session.username = newUser.username;
+            req.session.logged_in = true;
+            res.status(200).json({ message: 'User is registered!', newUser })
+        });
 
     } catch (error) {
         console.error('There was an error signing up');
@@ -24,7 +28,7 @@ router.post('/', async (req, res) => {
 // POST login route 
 router.post('/login', async (req, res) => {
     try {
-        // Find the user who matches the posted username
+        // Find user who matches the posted username
         const userData = await User.findOne({
             where: {
                 username: req.body.username,
@@ -37,6 +41,9 @@ router.post('/login', async (req, res) => {
         // If the user is found, compare the entered password with the password hash stored in the database
         const validPassword = await bcrypt.compare(req.body.password, userData.password);
 
+        if (!validPassword) {
+            res.status().json({ message: 'No account found!' });
+        }
         // If the passwords match, set up sessions with a 'loggedIn' variable set to `true`
         req.session.save(() => {
             req.session.user_id = userData.id;
@@ -51,10 +58,10 @@ router.post('/login', async (req, res) => {
 });
 
 // DELETE session route
-router.delete('/logout', async (req, res) => {
+router.post('/logout', async (req, res) => {
     try {
         // When the user logs out, destroy the session
-        if (req.session.user_id) {
+        if (req.session.logged_in) {
             req.session.destroy(() => {
                 res.status(204).end();
             });
