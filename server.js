@@ -13,9 +13,8 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 dotenv.config();
 
-const sessionSecret = process.env.SESSION_SECRET;
 const sesh = {
-    secret: sessionSecret,
+    secret: 'Ultra secret',
     cookie: {
         // Session will automatically expire in 10 minutes
         expires: 10 * 60 * 1000,
